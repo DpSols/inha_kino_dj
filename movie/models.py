@@ -1,8 +1,6 @@
 from django.db import models
 from datetime import date
 
-# Create your models here.
-
 
 class Genre(models.Model):
     genre_name = models.CharField(max_length=50)
@@ -31,7 +29,7 @@ class Category(models.Model):
 class Actor(models.Model):
     actor_name = models.CharField(max_length=50)
     actor_birthday = models.DateField(default=date.today)
-    # actor_age = date.today-actor_birthday
+    actor_image = models.ImageField(upload_to="actors/")
     # Perhaps any other fields are required
 
     def __str__(self):
@@ -241,7 +239,7 @@ class Movie(models.Model):
         ('Zambia', 'Zambia'),
         ('Zimbabwe', 'Zimbabwe'),
     )
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     description = models.TextField()
     published_date = models.PositiveSmallIntegerField()
     world_premiere = models.DateField(default=date.today)
@@ -257,6 +255,13 @@ class Movie(models.Model):
     budget = models.PositiveIntegerField(default=0)
     fees_in_usa = models.PositiveIntegerField(default=0)
     fees_in_world = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Movie"
+        verbose_name_plural = "Movies"
 
 
 class MovieShots(models.Model):
